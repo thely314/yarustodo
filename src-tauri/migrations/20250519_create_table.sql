@@ -1,0 +1,10 @@
+-- Add migration script here
+CREATE TABLE IF NOT EXISTS todos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deadline TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    emergency_level INTEGER NOT NULL DEFAULT 0,
+    context TEXT
+);

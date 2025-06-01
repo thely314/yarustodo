@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yarustodo</title>
+    <script type="module" src="/main.js" defer></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <div class="content-views">
+        <!-- TODO列表视图 -->
+        <div id="todo-view" class="view active">
+          <div class="todo-header">
+            <h1 class="row-center">TODOs</h1>
+            <!-- 悬浮排序条 -->
+            <div class="sort-bar row-center">
+              <h3 data-i18n="sort_by">Sort by:</h3>
+              <button class="sort-option" data-field="completed">
+                <span class="icon">✓</span> <span data-i18n="completed">Completed</span>
+              </button>
+              <button class="sort-option" data-field="created_at">
+                <span class="icon">📅</span> <span data-i18n="created_time">Created Time</span>
+              </button>
+              <button class="sort-option" data-field="deadline">
+                <span class="icon">⏰</span> <span data-i18n="deadline">Deadline</span>
+              </button>
+              <button class="sort-option" data-field="emergency_level">
+                <span class="icon">⚠️</span> <span data-i18n="priority">Priority</span>
+              </button>
+            </div>
+            <!-- 搜索条 -->
+            <div class="filter-bar">
+              <div class="search-container">
+                <input type="text" id="todo-search" placeholder="search for..." class="search-input">
+                <button class="search-btn" data-i18n="search">🔍Search</button>
+              </div>
+            </div>
+          </div>
+          <div id="tasks" class="task-list scrollable"></div>
+          <button id="add-btn" class="floating-btn">+</button>
+        </div>
+
+        <!-- 设置视图（默认隐藏） -->
+        <div id="settings-view" class="view">
+          <h1 class="row-center" data-i18n="settings">Settings</h1>
+          <div class="row-center"><p class="version" data-i18n="version">App Version: 0.1.0</p></div>
+          <div class="row-center">
+            <a href="https://tauri.app" target="_blank">
+              <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
+            </a>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+              target="_blank"
+            >
+              <img src="/assets/javascript.svg" class="logo vanilla" alt="JavaScript logo" />
+            </a>
+          </div>
+          <div class="row-center"><p data-i18n="support">Support By Tauri and JavaScript</p></div>
+          <div class="row-center"><p data-i18n="change_theme">Change theme</p></div>
+          <div class="row-center settings-btns">
+            <button id="light-theme" data-i18n="light_theme">
+              light-theme
+            </button>
+            <button id="dark-theme" data-i18n="dark_theme">
+              dark-theme
+            </button>
+          </div>
+          <div class="row-center"><p data-i18n="change_lang">Change language</p></div>
+          <div class="row-center settings-btns">
+            <button id="lang-zh">
+              简体中文
+            </button>
+            <button id="lang-en">
+              Engligh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部菜单栏 -->
+      <div class="bottom-menu">
+        <button class="menu-item active" data-target="todo-view">TODOs</button>
+        <button class="menu-item" data-target="settings-view" data-i18n="settings">Settings</button>
+      </div>
+
+      <!-- 添加TODO模态框 -->
+      <div id="add-modal" class="modal">
+        <form class="modal-content" id="add-todo-form">
+          <h2 data-i18n="add_new_todo">Add New TODO</h2>
+          <input id="todo-title" placeholder="TODO title" data-i18n="todo_title_placeholder" required>
+          <input id="todo-context" placeholder="What to do" data-i18n="todo_context_placeholder">
+          <div class="form-row">
+            <label for="todo-deadline" data-i18n="deadline">Deadline:</label>
+            <input type="datetime-local" id="todo-deadline" min="1990-01-01T00:00" required>
+          </div>
+          <div class="form-row">
+            <label for="todo-emergency" data-i18n="priority_label">Emergency Level(positive integer only): </label>
+            <input id="todo-emergency" type="text" pattern="^[1-9]d*$" placeholder="Positive integer only"
+             data-i18n="priority_input_placeholder" required>
+          </div>
+          <div class="form-buttons">
+            <button class="btn" type="submit" data-i18n="add">Add</button>
+            <button type="button" class="btn cancel" data-i18n="cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 更新TODO模态框 -->
+      <div id="update-modal" class="modal">
+        <form class="modal-content" id="update-todo-form">
+          <h2 data-i18n="update_todo">Update TODO</h2>
+          <input type="hidden" id="update-id">
+          <input id="update-title" placeholder="TODO Title" data-i18n="todo_title_placeholder" required>
+          <input id="update-context" placeholder="What to do" data-i18n="todo_context_placeholder">
+          <div class="form-row">
+            <label for="update-deadline" data-i18n="deadline">Deadline:</label>
+            <input type="datetime-local" id="update-deadline" min="1990-01-01T00:00" required>
+          </div>
+          <div class="form-row">
+            <label for="update-emergency" data-i18n="priority_label">Emergency Level(positive integer only): </label>
+            <input id="update-emergency" type="text" pattern="^[1-9]d*$" placeholder="Positive integer only"
+             data-i18n="priority_input_placeholder" required>
+          </div>
+          <div class="form-buttons">
+            <button class="btn" type="submit" data-i18n="update">Update</button>
+            <button type="button" class="btn cancel" data-i18n="cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </body>
+</html>
