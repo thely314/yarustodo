@@ -5,7 +5,6 @@
     "deadline": "截止时间",
     "priority": "优先级",
     "search": "搜索",
-
     "settings": "设置",
     "version": "应用程序版本: 0.1.0",
     "support": "基于 Tauri 和 JavaScript 技术支持",
@@ -13,17 +12,15 @@
     "light_theme": "白天主题",
     "dark_theme": "夜间主题",
     "change_lang": "更改语言",
-
     "add_new_todo": "添加新的 TODO",
     "update_todo": "编辑 TODO",
     "todo_title_placeholder": "TODO 主题",
     "todo_context_placeholder": "代办事项内容",
     "priority_label": "优先级(仅限正整数): ",
-    "priority_input_placeholder": "仅限正整数",
+    "priority_input_placeholder": "123:绿色, 456:黄色, 789:红色",
     "add": "添加",
     "cancel": "取消",
     "update": "提交",
-
     "created_at_label": "创建时间: ",
     "delete": "删除",
     "edit": "编辑",
