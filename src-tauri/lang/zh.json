@@ -19,7 +19,7 @@
     "todo_title_placeholder": "TODO 主题",
     "todo_context_placeholder": "代办事项内容",
     "priority_label": "优先级(仅限正整数): ",
-    "priority_input_placeholder": "仅限正整数",
+    "priority_input_placeholder": "123:绿色, 456:黄色, 789:红色",
     "add": "添加",
     "cancel": "取消",
     "update": "提交",

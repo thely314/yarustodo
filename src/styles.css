@@ -8,7 +8,7 @@
 /* 白天主题 */
 [data-theme="light"] {
   --bg-global: #e6e6e6;
-  --text-global: #0f0f0f;
+  --text-global: #000000;
   --menu-bg: #ffffff;
   --menu-item-bg: #f0f0f0;
   --menu-item-color: #0f0f0f;
@@ -25,7 +25,7 @@
   --search-btn-color: #777;
   --highlight-bg: #ffeb3b;
   --todo-border: #ddd;
-  --modal-bg: rgba(0,0,0,0.5);
+  --modal-bg: rgba(0, 0, 0, 0.5);
   --modal-ctx-bg: #ededed;
   --modal-h2: #2c3e50;
 
@@ -34,10 +34,10 @@
   --add-modal-top-border: #2ecc71;
   --update-modal-top-border: #319adf;
 
-  --todo-deadline: #666;
-  --todo-expanded-color: #444;
-  --todo-meta-color: #888;
-  --todo-emergency-color: #e74c3c;
+  --todo-deadline: #000000;
+  --todo-expanded-color: #000000;
+  --todo-meta-color: #000000;
+  --todo-emergency-color: #000000;
 
   --cancel-bg: #e74c3c;
 
@@ -49,11 +49,16 @@
   --btn-hover-border: #396cd8;
   --btn-active-border: #396cd8;
   --btn-active-bg: #e8e8e8;
-  
+
   --light-theme-btn-color: #e6e6e6;
   --light-theme-btn-bg: #36876e;
   --dark-theme-btn-color: #0f0f0f;
   --dark-theme-btn-bg: #ffffff;
+
+  --priority1-bg-color: rgba(226, 47, 27, 0.8);
+  --priority2-bg-color: rgba(243, 156, 18, 0.8);
+  --priority3-bg-color: rgba(46, 204, 113, 0.8);
+
 }
 
 /* 夜间主题 */
@@ -76,7 +81,7 @@
   --search-btn-color: #595959;
   --highlight-bg: #b3b134;
   --todo-border: #cccccc;
-  --modal-bg: rgba(0,0,0,0.5);
+  --modal-bg: rgba(0, 0, 0, 0.5);
   --modal-ctx-bg: #181818;
   --modal-h2: #dddddd;
 
@@ -88,7 +93,7 @@
   --todo-deadline: #dedede;
   --todo-expanded-color: #d0d0d0;
   --todo-meta-color: #cfcfcf;
-  --todo-emergency-color: #f94f3c;
+  --todo-emergency-color: #dedede;
 
   --cancel-bg: #e74c3c;
 
@@ -105,6 +110,22 @@
   --light-theme-btn-bg: #cccccc;
   --dark-theme-btn-color: #e6e6e6;
   --dark-theme-btn-bg: #36876e;
+
+  --priority1-bg-color: rgba(226, 47, 27, 0.5);
+  --priority2-bg-color: rgba(243, 156, 18, 0.5);
+  --priority3-bg-color: rgba(46, 204, 113, 0.5);
+}
+
+.priority-1 {
+  background-color: var(--priority1-bg-color);
+}
+
+.priority-2 {
+  background-color: var(--priority2-bg-color);
+}
+
+.priority-3 {
+  background-color: var(--priority3-bg-color);
 }
 
 #light-theme {
@@ -142,15 +163,16 @@
 }
 
 * {
-  transition: 
-    background-color var(--transition-speed), 
+  transition:
+    background-color var(--transition-speed),
     color var(--transition-speed);
 }
 
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 禁止全局滚动 */
+  overflow: hidden;
+  /* 禁止全局滚动 */
 }
 
 .container {
@@ -173,7 +195,8 @@ body {
   flex: 1;
   width: 100%;
   position: relative;
-  padding-bottom: 60px; /* 给底部菜单留出空间 */
+  padding-bottom: 60px;
+  /* 给底部菜单留出空间 */
   overflow-y: auto;
 }
 
@@ -195,8 +218,10 @@ body {
 /* 可滚动的TODO列表 */
 .scrollable {
   position: sticky;
-  padding-top: 150px; /* 留出顶部空间 */
-  padding-bottom: 160px; /* 防止最后一项被按钮遮挡 */
+  padding-top: 150px;
+  /* 留出顶部空间 */
+  padding-bottom: 160px;
+  /* 防止最后一项被按钮遮挡 */
   z-index: 0;
 }
 
@@ -210,11 +235,16 @@ body {
   border-radius: 50%;
   font-size: 45px;
   z-index: 10;
-  display: flex;           /* 启用弹性布局 */
-  justify-content: center; /* 水平居中 */
-  align-items: center;     /* 垂直居中 */
-  line-height: 1;          /* 避免行高影响 */
-  padding: 0;              /* 移除内边距 */
+  display: flex;
+  /* 启用弹性布局 */
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+  line-height: 1;
+  /* 避免行高影响 */
+  padding: 0;
+  /* 移除内边距 */
 }
 
 /* 底部菜单栏 */
@@ -369,11 +399,13 @@ body {
   padding: 0 2px;
   border-radius: 3px;
   font-weight: bold;
-  display: inline; /* 确保内联显示 */
+  display: inline;
+  /* 确保内联显示 */
 }
 
 /* 高亮保留原有标题和内容的样式 */
-.todo-title, .expanded-content .context {
+.todo-title,
+.expanded-content .context {
   display: block;
   word-wrap: break-word;
 }
@@ -391,6 +423,7 @@ body {
 .todo-item .default-content:not(.expanded) {
   display: flex;
 }
+
 .todo-item .default-content.expanded {
   display: none;
 }
@@ -398,6 +431,7 @@ body {
 .todo-item .expanded-content:not(.expanded) {
   display: none;
 }
+
 .todo-item .expanded-content.expanded {
   display: block;
 }
@@ -426,7 +460,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal h2 {
@@ -504,10 +538,12 @@ body {
   gap: 15px;
   align-items: baseline;
 }
+
 .todo-title {
   font-weight: bold;
   font-size: 1.1em;
 }
+
 .deadline {
   color: var(--todo-deadline);
   font-size: 0.9em;
@@ -518,11 +554,14 @@ body {
   gap: 10px;
   justify-content: flex-end;
 }
+
 .btn {
   padding: 6px 12px;
   border-radius: 4px;
 }
-.unfold, .fold {
+
+.unfold,
+.fold {
   min-width: 50px;
   padding: 2px;
 }
@@ -533,11 +572,13 @@ body {
   color: var(--todo-expanded-color);
   padding: 8px 0;
 }
+
 .meta {
   color: var(--todo-meta-color);
   font-size: 0.9em;
   gap: 20px;
 }
+
 .emergency {
   color: var(--todo-emergency-color);
 }
@@ -599,6 +640,7 @@ button {
 button:hover {
   border-color: var(--btn-hover-border);
 }
+
 button:active {
   border-color: var(--btn-active-border);
   background-color: var(--btn-active-bg);
@@ -628,6 +670,7 @@ button {
     color: #ffffff;
     background-color: #0f0f0f98;
   }
+
   button:active {
     background-color: #0f0f0f69;
   }

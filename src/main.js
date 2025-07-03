@@ -68,10 +68,34 @@ function highlightText(element, text, searchTerm) {
   return element;
 }
 
+// 确定紧急程度
+function getEmergencyLevel(todo) {
+  let level = todo.emergency_level;
+  if (level < 4) {
+    return '3';
+  }
+  else if (level < 7) {
+    return '2';
+  }
+  return '1';
+}
+
 // 创建单个TODO元素
 function createTodoElement(todo, searchTerm = '') {
   let div = document.createElement("div");
   div.classList.add("todo-wrapper");
+
+  switch (getEmergencyLevel(todo)) {
+    case '1':
+      div.classList.add('priority-1');
+      break;
+    case '2':
+      div.classList.add('priority-2');
+      break;
+    case '3':
+      div.classList.add('priority-3');
+      break;
+  }
 
   // 创建标题元素
   const titleElement = document.createElement('div');
@@ -307,7 +331,7 @@ function bindTodoEvents(todoElement) {
 
   // Delete按钮
   todoElement.querySelectorAll('.delete').forEach((el) => {
-    el.addEventListener('click',async () => {
+    el.addEventListener('click', async () => {
       const id = parseInt(todoElement.querySelector('.todo-item').dataset.id);
       await delete_todo(id);
       await buildTodoList();
@@ -322,7 +346,7 @@ function bindTodoEvents(todoElement) {
         title: todoElement.querySelector('.todo-title').textContent,
         context: todoElement.querySelector('.context').textContent,
         deadline: todoElement.querySelector('.deadline').textContent,
-        emergency_level: todoElement.querySelector('.emergency').textContent.split(': ')[1],
+        emergency_level: todoElement.querySelector('.emergency').textContent.split(' ')[1],
       }
       openUpdateModal(todo);
     });
@@ -338,7 +362,7 @@ function bindSortEvents() {
       if (currentSort.field === field) {
         currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
       } else {
-      // 否则设置新字段，默认升序
+        // 否则设置新字段，默认升序
         currentSort.field = field;
         currentSort.direction = 'asc';
       }

@@ -19,7 +19,7 @@
     "todo_title_placeholder": "TODO title",
     "todo_context_placeholder": "What to do",
     "priority_label": "Priority(positive integer only): ",
-    "priority_input_placeholder": "Positive integer only",
+    "priority_input_placeholder": "123:green, 456:yellow, 789:red",
     "add": "Add",
     "cancel": "Cancel",
     "update": "Update",
