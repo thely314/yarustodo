@@ -5,6 +5,7 @@
     "deadline": "Deadline",
     "priority": "Priority",
     "search": "Search",
+
     "settings": "Settings",
     "version": "App Version: 0.1.0",
     "support": "Support By Tauri and JavaScript",
@@ -12,6 +13,7 @@
     "light_theme": "light-theme",
     "dark_theme": "dark-theme",
     "change_lang": "Change language",
+
     "add_new_todo": "Add new TODO",
     "update_todo": "Update TODO",
     "todo_title_placeholder": "TODO title",
@@ -21,6 +23,7 @@
     "add": "Add",
     "cancel": "Cancel",
     "update": "Update",
+
     "created_at_label": "Created at: ",
     "delete": "Delete",
     "edit": "Edit",
