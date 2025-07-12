@@ -90,6 +90,7 @@
       <div id="add-modal" class="modal">
         <form class="modal-content" id="add-todo-form">
           <h2 data-i18n="add_new_todo">Add New TODO</h2>
+          <div id="add-error" class="error-message"></div><!-- 错误提示元素 -->
           <input id="todo-title" placeholder="TODO title" data-i18n="todo_title_placeholder" required>
           <input id="todo-context" placeholder="What to do" data-i18n="todo_context_placeholder">
           <div class="form-row">
@@ -112,6 +113,7 @@
       <div id="update-modal" class="modal">
         <form class="modal-content" id="update-todo-form">
           <h2 data-i18n="update_todo">Update TODO</h2>
+          <div id="update-error" class="error-message"></div><!-- 错误提示元素 -->
           <input type="hidden" id="update-id">
           <input id="update-title" placeholder="TODO Title" data-i18n="todo_title_placeholder" required>
           <input id="update-context" placeholder="What to do" data-i18n="todo_context_placeholder">

@@ -685,3 +685,31 @@ button:active {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+/* 错误提示 */
+.error-message {
+  color: #ff4d4d;
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #ffeeee;
+  border-radius: 4px;
+  display: none;
+  text-align: center;
+}
+
+/* 深色主题适配 */
+[data-theme=dark] .error-message {
+  background-color: #5a2a2a;
+  color: #ff9d9d;
+}
+
+/* 错误晃动提醒 */
+.shake-animation {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}

@@ -28,5 +28,7 @@
     "delete": "删除",
     "edit": "编辑",
     "unfold": "▼ 展开",
-    "fold": "▲ 折叠"
+    "fold": "▲ 折叠",
+
+    "duplicate_todo_error": "相同标题,截止日期和内容的待办事项已存在"
 }
