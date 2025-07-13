@@ -223,15 +223,33 @@ window.addEventListener("DOMContentLoaded", () => {
   // 添加表单提交
   document.querySelector("#add-todo-form").addEventListener("submit", (event) => {
     event.preventDefault();
+    // 获取错误提示元素
+    const errorElement = document.getElementById('add-error');
+    errorElement.textContent = ''; // 清空之前的错误信息
+    errorElement.style.display = 'none'; // 隐藏错误提示
+    
+    // 尝试添加待办事项
     add_todo(
       document.getElementById('todo-title').value,
       document.getElementById('todo-context').value,
       document.getElementById('todo-deadline').value,
       parseInt(document.getElementById('todo-emergency').value),
     ).then(() => {
+      // 添加成功
       buildTodoList();
       closeAllModals();
       document.getElementById('add-todo-form').reset();
+    }).catch((error) => {
+      // 添加失败，显示错误信息
+      errorElement.dataset.i18n = "duplicate_todo_error";
+      updateTextsLang(languageResources); // 应用当前语言的翻译
+      errorElement.style.display = 'block';
+      
+      // 抖动动画效果
+      errorElement.classList.remove('shake-animation');
+      setTimeout(() => {
+        errorElement.classList.add('shake-animation');
+      }, 10);
     });
   });
 
@@ -239,15 +257,33 @@ window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#update-todo-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    // 获取错误提示元素
+    const errorElement = document.getElementById('update-error');
+    errorElement.textContent = ''; // 清空之前的错误信息
+    errorElement.style.display = 'none'; // 隐藏错误提示
+
     const id = parseInt(document.getElementById('update-id').value);
     const title = document.getElementById('update-title').value;
     const context = document.getElementById('update-context').value;
     const deadline = document.getElementById('update-deadline').value;
     const emergencyLevel = parseInt(document.getElementById('update-emergency').value);
-
-    await update_todo(id, title, deadline, emergencyLevel, context);
-    await buildTodoList();
-    closeAllModals();
+    
+    try {
+      await update_todo(id, title, deadline, emergencyLevel, context);
+      await buildTodoList();
+      closeAllModals();
+    } catch (error) {
+      // 更新失败，显示错误信息
+      errorElement.dataset.i18n = "duplicate_todo_error";
+      updateTextsLang(languageResources); // 应用当前语言的翻译
+      errorElement.style.display = 'block';
+      
+      // 抖动动画效果
+      errorElement.classList.remove('shake-animation');
+      setTimeout(() => {
+        errorElement.classList.add('shake-animation');
+      }, 10);
+    }
   });
 });
 
@@ -276,6 +312,16 @@ function openUpdateModal(todo) {
 function closeAllModals() {
   document.getElementById('add-modal').style.display = 'none';
   document.getElementById('update-modal').style.display = 'none';
+
+  // 清除所有错误提示
+  document.getElementById('add-error').textContent = '';
+  document.getElementById('add-error').style.display = 'none';
+  document.getElementById('update-error').textContent = '';
+  document.getElementById('update-error').style.display = 'none';
+  
+  // 移除动画类
+  document.getElementById('add-error').classList.remove('shake-animation');
+  document.getElementById('update-error').classList.remove('shake-animation');
 }
 
 // Rust 后端调用
@@ -475,6 +521,13 @@ function updateTextsLang(langData) {
         element.setAttribute('placeholder', langData[key]);
       } else {
         element.textContent = langData[key];
+      }
+    }
+    // 更新错误信息文本
+    if (element.id === 'add-error' || element.id === 'update-error' && element.dataset.i18n) {
+      const errorKey = element.dataset.i18n;
+      if (langData[errorKey]) {
+        element.textContent = langData[errorKey];
       }
     }
   });

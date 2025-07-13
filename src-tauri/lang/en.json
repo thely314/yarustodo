@@ -28,5 +28,7 @@
     "delete": "Delete",
     "edit": "Edit",
     "unfold": "▼ unfold",
-    "fold": "▲ fold"
+    "fold": "▲ fold",
+
+    "duplicate_todo_error": "Todo with same title, deadline and context already exists"
 }

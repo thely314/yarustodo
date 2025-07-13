@@ -31,6 +31,21 @@ pub async fn add_todo(
     let db = &state.db;
     let format_deadline = parse_datetime(deadline);
 
+    // 检查重复待办项（相同标题+截止日期+内容）
+    let exists: (i64,) = sqlx::query_as(
+        "SELECT EXISTS(SELECT 1 FROM todos WHERE title = ?1 AND deadline = ?2 AND context = ?3);"
+    )
+        .bind(title)
+        .bind(format_deadline.as_str())
+        .bind(context)
+        .fetch_one(db)
+        .await
+        .map_err(|e| format!("Failed to check duplicate: {}", e))?;
+
+    if exists.0 == 1 {
+        return Err("Todo with the same title, deadline and context already exists".into());
+    }
+
     sqlx::query("INSERT INTO todos (\
         title, deadline, emergency_level, context) VALUES (?1, ?2, ?3, ?4);")
         .bind(title)
@@ -98,6 +113,22 @@ pub async fn update_todo(
 ) -> Result<(), String> {
     let db = &state.db;
     let format_deadline = parse_datetime(deadline);
+
+    // 检查重复待办项（相同标题+截止日期+内容），排除当前更新的项目
+    let exists: (i64,) = sqlx::query_as(
+        "SELECT EXISTS(SELECT 1 FROM todos WHERE title = ?1 AND deadline = ?2 AND context =  ?3 AND id != ?4)"
+    )
+        .bind(title)
+        .bind(format_deadline.as_str())
+        .bind(context)
+        .bind(id)
+        .fetch_one(db)
+        .await
+        .map_err(|e| format!("Failed to check duplicate: {}", e))?;
+
+    if exists.0 == 1 {
+        return Err("Todo with same title, deadline and context already exists".into());
+    }
 
     sqlx::query("UPDATE todos \
         SET title = ?1, deadline = ?2, \
