@@ -26,7 +26,6 @@ assignees: ''
 + **Please tell us about your environment(if this is a bug report):**
 
   - Version:
-  - Browser:
   - OS:
   - Other info:
 
