@@ -15,7 +15,7 @@ backend: Tauri & Rust
 ## Features
 + store your TODOs in a sqlite database file
 + daytime and nighttime themes
-+ multiple language supports (Chinese and Engligh now)
++ multiple language supports (only Chinese and Engligh now)
 
 ## Getting Start
 ### Build by yourself
